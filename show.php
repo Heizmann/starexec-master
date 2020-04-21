@@ -6,7 +6,7 @@ if( substr($contents, 0, 5) == '<?xml' ) {
 } else if( substr($contents, 0, 6) == '<?html' ) {
     header('Content-Type: text/html' );
 } else {
-    header('Content-Type: text' );
+    header('Content-Type: text/plain' );
 }
 echo $contents;
 ?>
