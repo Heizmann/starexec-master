@@ -28,7 +28,7 @@ $competition = [
 	"name" => "Certifying the Weighted Path Ordering",
 	"mcats" => [
 		"Certification Experiments" => [
-			[ 'Experiments', 'termination', 39155 ],
+			[ 'Certified', 'termination', 39156 ],
 		],
 	],
 ];
