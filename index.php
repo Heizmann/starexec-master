@@ -24,98 +24,15 @@
 </head>
 <body>
 <?php
-$competitions = [
-2019 => [
-	"name" => "Termination Competition 2019",
+$competition = [
+	"name" => "Certifying the Weighted Path Ordering",
 	"mcats" => [
-		"Termination of Rewriting" => [
-			[ 'TRS Standard', 'termination', 33457 ],
-			[ 'TRS Standard Certified', 'termination', 33116 ],
-			[ 'SRS Standard', 'termination', 33458 ],
-			[ 'SRS Standard Certified', 'termination', 33117 ],
-			[ 'TRS Relative', 'termination', 33012 ],
-			[ 'TRS Relative Certified', 'termination', 33126 ],
-			[ 'SRS Relative', 'termination', 33461 ],
-			[ 'SRS Relative Certified', 'termination', 33127 ],
-			[ 'TRS Equational', 'termination', 33020 ],
-			[ 'TRS Equational Certified', 'termination', 33128 ],
-			[ 'TRS Conditional', 'termination', 33455 ],
-			[ 'TRS Context Sensitive', 'termination', 33019 ],
-			[ 'TRS Innermost', 'termination', 33453 ],
-			[ 'HRS (union beta)', 'termination', 33452 ],
-		],
-	 	"Termination of Programs" => [
-			[ 'C', 'termination', 33437 ],
-			[ 'C Integer', 'termination', 33454 ],
-			[ 'Logic Programming', 'termination', 33595 ],
-			[ 'Integer Transition Systems', 'termination', 33456 ],
-			[ 'Integer TRS Innermost', 'termination', 33016 ],
-		],
-		"Complexity Analysis" => [
-			[ 'Complexity: ITS', 'complexity', 33014 ],
-			[ 'Complexity: C Integer', 'complexity', 33013 ],
-		],
-		"Demonstrations" => [
-			[ 'TRS Outermost', 'termination', 33568 ],
-			[ 'TRS Outermost Certified', 'termination', 33569 ],
-			[ 'TRS Innermost Certified', 'termination', 33570 ],
-			[ 'Java Bytecode', 'termination', 33571 ],
-			[ 'Haskell', 'termination', 33572 ],
-			[ 'Runtime Complexity: TRS', 'complexity', 33563 ],
-			[ 'Runtime Complexity: TRS Innermost', 'complexity', 33566 ],
-			[ 'Runtime Complexity: TRS Innermost Certified', 'complexity', 33567 ],
+		"Certification Experiments" => [
+			[ 'Experiments', 'termination', 39155 ],
 		],
 	],
-],
-2018 => [
-	'name' => 'Termination Competition 2018',
-	'mcats' => [
-		"Termination of Rewriting" => [
-			[ 'TRS Standard', 'termination', 30034 ],
-			[ 'TRS Standard Certified', 'termination', 30038 ],
-			[ 'SRS Standard', 'termination', 30035 ],
-			[ 'SRS Standard Certified', 'termination', 30039 ],
-			[ 'TRS Relative', 'termination', 30036 ],
-			[ 'TRS Relative Certified', 'termination', 30040 ],
-			[ 'SRS Relative', 'termination', 30037 ],
-			[ 'SRS Relative Certified', 'termination', 30041 ],
-			[ 'TRS Equational', 'termination', 30042 ],
-			[ 'TRS Equational Certified', 'termination', 30043 ],
-			[ 'TRS Conditional', 'termination', 30044 ],
-			[ 'TRS Context Sensitive', 'termination', 30045 ],
-			[ 'TRS Innermost', 'termination', 30046 ],
-			[ 'HRS (union beta)', 'termination', 30047 ],
-		],
-	 	"Termination of Programs" => [
-			[ 'C', 'termination', 30048 ],
-			[ 'C Integer', 'termination', 30049 ],
-			[ 'Integer Transition Systems', 'termination', 30050 ],
-			[ 'Integer TRS Innermost', 'termination', 30051 ],
-		],
-		"Complexity Analysis" => [
-			['Complexity: ITS', 'complexity', 30054 ],
-			['Complexity: C Integer', 'complexity', 30055 ],
-			['Runtime Complexity: TRS', 'complexity', 30091 ],
-			['Runtime Complexity: TRS Innermost', 'complexity', 30092 ],
-			['Runtime Complexity: TRS Innermost Certified', 'complexity', 30094 ],
-		],
-		"Demonstration" => [
-			[ 'TRS Outermost', 'termination', 30096 ],
-			[ 'TRS Outermost Certified', 'termination', 30098 ],
-			[ 'TRS Innermost Certified', 'termination', 30097 ],
-			[ 'HRS', 'termination', 30099 ],
-			[ 'Java Bytecode', 'termination', 30100 ],
-			[ 'Prolog', 'termination', 30101 ],
-			[ 'Haskell', 'termination', 30102 ],
-			[ 'Derivational Complexity: TRS', 'complexity', 30103 ],
-			[ 'Derivational Complexity: TRS Certified', 'complexity', 30104 ],
-			[ 'Runtime Complexity: TRS Certified', 'complexity', 30105 ],
-		],
-	],
-]
 ];
 
-	$competition = $competitions['2019'];
 	$mcats = $competition['mcats'];
 
 	echo "<h1>" . $competition['name'] .
