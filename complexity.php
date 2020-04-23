@@ -92,7 +92,8 @@
 	echo "<title>$jobname</title>\n";
 	echo "</head>\n";
 	echo "<body>\n";
-	echo "<h1>$jobname</h1>\n";
+	echo "<h1><a href='..'>$competitionname</a>: $jobname";
+	echo "<a class=starexecid href='".jobid2url($jobid). "'>$jobid</a></h1>\n";
 	echo "<table>\n";
 	$file = new SplFileObject($csv);
 	$file->setFlags( SplFileObject::READ_CSV );

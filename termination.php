@@ -22,7 +22,7 @@
 	echo " <title>$competitionname: $jobname</title>\n";
 	echo "</head>\n";
 	echo "<body>\n";
-	echo "<h1>$competitionname: $jobname";
+	echo "<h1><a href='..'>$competitionname</a>: $jobname";
 	echo "<a class=starexecid href='".jobid2url($jobid). "'>$jobid</a></h1>\n";
 	echo "<a href='../$csv'>Job info CSV</a>\n";
 	echo "<table>\n";
@@ -96,7 +96,9 @@
 		if( $configid == $first ) {
 			$bench = [];
 			$benchmark = parse_benchmark( $record[$benchmark_idx] );
-			$url = bmid2url($record[$benchmark_id_idx]);
+			$benchmark_id = $record[$benchmark_id_idx];
+			$benchmark_url = bmid2url($benchmark_id);
+			$benchmark_remote = bmid2remote($benchmark_id);
 			$resultcounter = []; /* collects results for each benchmark */
 		}
 		if( status2complete($status) ) {
@@ -134,7 +136,8 @@
 			if( $conflict && $conflicts == 1 ) {
 				echo "   <a name='conflict'/>\n";
 			}
-			echo "   <a href='$url'>$benchmark</a></td>\n";
+			echo "   <a href='$benchmark_url'>$benchmark</a>".
+			     "   <a class=starexecid href='$benchmark_remote'>$benchmark_id</a></td>\n";
 			foreach( array_keys($bench) as $me ) {
 				$my = $bench[$me];
 				$status = $my['status'];
@@ -144,7 +147,7 @@
 				$outurl = pairid2outurl($my['pair']);
 				if( $status == 'complete' ) {
 					echo '  <td class=' . result2class($result) . ">
-   <a href='../show.php?url=$outurl'>" . result2str($result) . "</a>
+   <a href='$outurl'>" . result2str($result) . "</a>
    <a href='$url'>
     <span class=time>" . $my['cpu'] . "/" . $my['time'] . "</span>
    </a>\n";

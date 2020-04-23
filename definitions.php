@@ -49,7 +49,7 @@
 		return "caches/Job" . $jobid . "_score.json";
 	}
 	function pairid2url($pairid) {
-		return "https://www.starexec.org/starexec/secure/details/pair.jsp?id=$pairid";
+		return "../show.php?url=https://www.starexec.org/starexec/secure/details/pair.jsp?id=$pairid";
 	}
 	function pairid2outurl($pairid) {
 		return "https://www.starexec.org/starexec/services/jobs/pairs/$pairid/stdout/1?limit=-1";
@@ -128,6 +128,9 @@
 		return "https://www.starexec.org/starexec/secure/details/job.jsp?id=$jobid";
 	}
 	function bmid2url($bmid) {
+		return "../show.php?url=https://www.starexec.org/starexec/services/benchmarks/$bmid/contents?limit=-1";
+	}
+	function bmid2remote($bmid) {
 		return "https://www.starexec.org/starexec/secure/details/benchmark.jsp?id=$bmid";
 	}
 	function solverid2url($solverid) {
