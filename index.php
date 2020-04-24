@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="master.css">
 <script>
 	var rankseps = [];
 	var ranksep = ['<br>','; '];
@@ -77,7 +78,8 @@ foreach( array_keys($mcats) as $mcatname ) {
 			if( ! file_exists($jobpath) ) {
 				$file = fopen($jobpath,'w');
 				fwrite( $file,
-'<?php
+'<!DOCTYPE html>
+<?php
 	$competitionname = '. str2str($competition['name']) . ';
 	$jobname = ' . str2str($catname) . ';
 	$jobid = ' . $jobid . ';
@@ -154,9 +156,7 @@ foreach( array_keys($mcats) as $mcatname ) {
 				foreach( $scored_keys as $key ) {
 					if( array_key_exists( $key, $s ) ) {
 						$subscore = $s[$key];
-						echo '<span class='.
-							( $subscore == $best[$key] ? 'best' : '' ). result2class($key) .
-						 '>'. $key . ':' . $subscore . '</span>, ';
+						echo '<span '. result2style( $key, $subscore == $best[$key] ) . '>'. $key . ':' . $subscore . '</span>, ';
 					}
 				}
 				echo "<span class=".( $time == $best['time'] ? 'besttime' : 'time' ).'>TIME:'.seconds2str($time).'</span>';

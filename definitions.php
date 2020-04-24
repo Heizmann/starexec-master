@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="master.css">
 <?php
 
 	function seconds2str($s) {
@@ -49,10 +48,10 @@
 		return "caches/Job" . $jobid . "_score.json";
 	}
 	function pairid2url($pairid) {
-		return "../show.php?url=https://www.starexec.org/starexec/secure/details/pair.jsp?id=$pairid";
+		return "https://www.starexec.org/starexec/secure/details/pair.jsp?id=$pairid";
 	}
 	function pairid2outurl($pairid) {
-		return "https://www.starexec.org/starexec/services/jobs/pairs/$pairid/stdout/1?limit=-1";
+		return "../show.php?url=https://www.starexec.org/starexec/services/jobs/pairs/$pairid/stdout/1?limit=-1";
 	}
 	$result_table = [
 		'YES' => [ 'class' => 'YES', 'score' => 1 ],
@@ -78,9 +77,13 @@
 			return 'ERROR';
 		}
 	}
-	function result2class($result) {
+	function result2style( $result, $best = false ) {
 		global $result_table;
-		return $result_table[$result]['class'];
+		if( array_key_exists( $result, $result_table ) ) {
+			return 'class=' . ($best ? 'best' : '') . $result_table[$result]['class'];
+		} else {
+			return '';
+		}
 	}
 	function status2style($status) {
 		if( $status == 'complete' ) {

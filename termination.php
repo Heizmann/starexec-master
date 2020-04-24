@@ -1,7 +1,7 @@
-<!DOCTYPE html>
 <html lang='en'>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../master.css">
 <?php
 	include './definitions.php';
 	
@@ -146,7 +146,7 @@
 				$url = pairid2url($my['pair']);
 				$outurl = pairid2outurl($my['pair']);
 				if( $status == 'complete' ) {
-					echo '  <td class=' . result2class($result) . ">
+					echo '  <td ' . result2style($result) . ">
    <a href='$outurl'>" . result2str($result) . "</a>
    <a href='$url'>
     <span class=time>" . $my['cpu'] . "/" . $my['time'] . "</span>
