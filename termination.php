@@ -46,7 +46,9 @@
 	$wallclocktime_idx = array_search('wallclock time', $records[0]);
 	$memoryusage_idx = array_search('memory usage', $records[0]);
 	$result_idx = array_search('result', $records[0]);
+	$bareresult_idx = array_search('bare-result', $records[0]);
 	$certificationresult_idx = array_search('certification-result', $records[0]);
+	$certificationtime_idx = array_search('certification-time', $records[0]);
 	unset( $records[0] );
 
 	$participants = [];
@@ -72,16 +74,15 @@
 		$configid = $records[$i][$configid_idx];
 	} while( $configid != $first );
 
-	echo " <tr>\n";
-	echo "  <th>benchmark\n";
+	echo ' <tr>
+  <th>benchmark
+';
 	foreach( $participants as $participant ) {
-		echo "  <th><a href='". solverid2url($participant['solverid']) . "'>".$participant['solver']."</a>\n";
-	}
-	echo " <tr><th>\n";
-	foreach( $participants as $participant ) {
-		echo "  <th class='config'><a href='". configid2url($participant['configid']) ."'>". $participant['config']."</a>\n";
-	}
-	echo " <tr>\n";
+		echo '  <th><a href="'. solverid2url($participant['solverid']) . '">'.$participant['solver'].'</a>
+  <a class=config href="'. configid2url($participant['configid']) .'">'. $participant['config'].'</a>
+';	}
+	echo ' </tr>
+';
 	$bench = [];
 
 	$conflicts = 0;
@@ -92,7 +93,9 @@
 		$cpu = parse_time($record[$cputime_idx]);
 		$time = parse_time($record[$wallclocktime_idx]);
 		$result = $record[$result_idx];
+		$bareresult = $record[$bareresult_idx];
 		$cert = $certificationresult_idx ? $record[$certificationresult_idx] : '';
+		$certtime = $certificationtime_idx ? $record[$certificationtime_idx] : '';
 		if( $configid == $first ) {
 			$bench = [];
 			$benchmark = parse_benchmark( $record[$benchmark_idx] );
@@ -100,6 +103,10 @@
 			$benchmark_url = bmid2url($benchmark_id);
 			$benchmark_remote = bmid2remote($benchmark_id);
 			$resultcounter = []; /* collects results for each benchmark */
+			$show = false;
+		}
+		if( !status2pending($status) ) {
+			$show = true;
 		}
 		if( status2complete($status) ) {
 			$participant['done'] += 1;
@@ -114,13 +121,15 @@
 		$bench[$configid] = [
 			'status' => $status,
 			'result' => $result,
+			'bareresult' => $bareresult,
 			'cert' => $cert,
 			'time' => $time,
 			'cpu' => $cpu,
+			'certtime' => $certtime,
 			'pair' => $record[$pairid_idx],
 		];
-		if( $configid == $last ) {
-			$conflict = $resultcounter['YES'] > 0 && $resultcounter['NO'] > 0;
+		if( $configid == $last && $show ) {
+			$conflict = conflicting($resultcounter);
 			if( $conflict ) {
 				foreach( array_keys($bench) as $me ) {
 					if( $bench[$me]['score'] > 0 ) {
@@ -134,27 +143,38 @@
 			}
 			echo "  <td class=benchmark>\n";
 			if( $conflict && $conflicts == 1 ) {
-				echo "   <a name='conflict'/>\n";
+				echo '   <a name="conflict"/>
+';
 			}
-			echo "   <a href='$benchmark_url'>$benchmark</a>".
-			     "   <a class=starexecid href='$benchmark_remote'>$benchmark_id</a></td>\n";
+			echo '   <a href="'. $benchmark_url.'">'.$benchmark.'</a>
+   <a class=starexecid href="'.$benchmark_remote.'">'.$benchmark_id.'</a></td>
+';
 			foreach( array_keys($bench) as $me ) {
 				$my = $bench[$me];
 				$status = $my['status'];
 				$result = $my['result'];
+				$bareresult = $my['bareresult'];
 				$cert = $my['cert'];
+				$certtime = $my['certtime'];
 				$url = pairid2url($my['pair']);
 				$outurl = pairid2outurl($my['pair']);
 				if( $status == 'complete' ) {
-					echo '  <td ' . result2style($result) . ">
-   <a href='$outurl'>" . result2str($result) . "</a>
-   <a href='$url'>
-    <span class=time>" . $my['cpu'] . "/" . $my['time'] . "</span>
-   </a>\n";
+					echo '  <td ' . result2style($result) . '>
+   <a href="'. $outurl .'">' . result2str($bareresult) . '</a>
+   <a href="'. $url .'">
+    <span class=time>' . $my['cpu'] . '/' . $my['time'] . '</span>
+';
+	if( $cert != '-' ) {
+		echo ' (<span class=time>'. $certtime . '</span>)
+';
+	}
+	echo '   </a>
+';
 				} else {
-					echo "  <td " . status2style($status) . ">
-   <a href='$url'>" . status2str($status) . "</a>
-   <a href='$outurl'>[out]</a>\n";
+					echo '  <td ' . status2style($status) . '>
+   <a href="'. $url . '">' . $status . '</a>
+' . (status2complete($status) ? '   <a href="'. $outurl .'">[out]</a>
+' : '' );
 				}
 			}
 			echo " </tr>\n";

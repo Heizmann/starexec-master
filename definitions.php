@@ -67,7 +67,11 @@
 	];
 	function result2score($result) {
 		global $result_table;
-		return $result_table[$result]['score'];
+		if( array_key_exists( $result, $result_table ) ) {
+			return $result_table[$result]['score'];
+		} else {
+			return 0;
+		}
 	}
 	function result2str($result) {
 		global $result_table;
@@ -116,6 +120,9 @@
 			return true;
 		}
 	}
+	function status2pending($status) {
+		return $status == 'pending submission';
+	}
 	function parse_benchmark( $string ) {
 		preg_match( '|[^/]*/(.*)$|', $string, $matches );
 		$ret = $matches[1];
@@ -141,5 +148,10 @@
 	}
 	function configid2url($configid) {
 		return "https://www.starexec.org/starexec/secure/details/configuration.jsp?id=$configid";
+	}
+	function conflicting($results) {
+		$YES = array_key_exists('YES', $results) ? $results['YES'] : 0;
+		$NO = array_key_exists('NO', $results) ? $results['NO'] : 0;
+		return $YES > 0 && $NO > 0;
 	}
 ?>
