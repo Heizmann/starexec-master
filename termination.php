@@ -165,7 +165,7 @@
     <span class=time>' . $my['cpu'] . '/' . $my['time'] . '</span>
 ';
 	if( $cert != '-' ) {
-		echo ' (' . $cert . '<span class=time>'. $certtime . '</span>)
+		echo ' (' . $cert . ' <span class=time>'. $certtime . '</span>)
 ';
 	}
 	echo '   </a>
