@@ -68,6 +68,7 @@
 			'togo' => 0,
 			'cpu' => 0,
 			'time' => 0,
+			'certtime' => 0,
 		];
 		$last = $configid;
 		$i++;
@@ -114,6 +115,7 @@
 			$participant['time'] += $time;
 			$participant[$result] += 1;
 			$participant['score'] += result2score($result);
+			$participant['certtime'] += $certtime;
 			$resultscounter[$result]++;
 		} else {
 			$participant['togo'] += 1;

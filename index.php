@@ -138,6 +138,7 @@ foreach( array_keys($mcats) as $mcatname ) {
 				$done = $s['done'];
 				$cpu = $s['cpu'];
 				$time = $s['time'];
+				$certtime = $s['certtime'];
 				$conflicts = $s['conflicts'];
 				$name = $s['solver'];
 				$id = $s['solverid'];
@@ -149,17 +150,21 @@ foreach( array_keys($mcats) as $mcatname ) {
 					$rank = $count;
 				}
 				$prev_score = $score;
-				echo '   <span class='. ( $rank == 1 ? 'best' : '' )."solver>\n";
-				echo "    $rank. <a href='$url'>$name</a>\n";
-				echo "    <a class='config' href='". configid2url($configid) ."'>$config</a>";
-				echo "    <span class=score>(";
+				echo
+'   <span class='. ( $rank == 1 ? 'best' : '' ) . 'solver>
+    ' . $rank . '<a href="'. $url . '">'. $name . '</a>
+    <a class=config href="' . configid2url($configid) . '">'. $config . '</a>
+    <span class=score>(';
 				foreach( $scored_keys as $key ) {
 					if( array_key_exists( $key, $s ) ) {
 						$subscore = $s[$key];
 						echo '<span '. result2style( $key, $subscore == $best[$key] ) . '>'. $key . ':' . $subscore . '</span>, ';
 					}
 				}
-				echo "<span class=".( $time == $best['time'] ? 'besttime' : 'time' ).'>TIME:'.seconds2str($time).'</span>';
+				echo '<span class='.( $time == $best['time'] ? 'besttime' : 'time' ).'>TIME:'.seconds2str($time).'</span>';
+				if( $certtime != 0 ) {
+					echo ', <span class=time>Certification:'.seconds2str($certtime).'</span>';
+				}
 				echo ")</span>";
 				if( $togo > 0 ) {
 					echo "<span class=togo>,$togo</span>";
