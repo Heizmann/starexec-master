@@ -182,7 +182,7 @@
 ';
 					if( $cert != '-' ) {
 						echo
-' (' . $cert . ' <span class=time>'. $certtime . '</span>)
+' (' . $cert . '&nbsp;<span class=time>'. $certtime . '</span>)
 ';
 					}
 					echo
