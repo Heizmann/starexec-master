@@ -19,13 +19,15 @@
 	}
 	$scorefile = jobid2scorefile($jobid);
 
-	echo " <title>$competitionname: $jobname</title>\n";
-	echo "</head>\n";
-	echo "<body>\n";
-	echo "<h1><a href='..'>$competitionname</a>: $jobname";
-	echo "<a class=starexecid href='".jobid2url($jobid). "'>$jobid</a></h1>\n";
-	echo "<a href='../$csv'>Job info CSV</a>\n";
-	echo "<table>\n";
+	echo
+' <title>' . $competitionname . ': ' . $jobname . '</title>
+</head>
+<body>
+<h1><a href="..">' . $competitionname . '</a>: ' . $jobname .
+'<a class=starexecid href="' . jobid2url($jobid) . '">'. $jobid . '</a></h1>
+<a href="../'. $csv . '">Job info CSV</a>
+<table>
+';
 	$file = new SplFileObject($csv);
 	$file->setFlags( SplFileObject::READ_CSV );
 	$records = [];
@@ -75,14 +77,17 @@
 		$configid = $records[$i][$configid_idx];
 	} while( $configid != $first );
 
-	echo ' <tr>
+	echo
+' <tr>
   <th>benchmark
 ';
 	foreach( $participants as $participant ) {
-		echo '  <th><a href="'. solverid2url($participant['solverid']) . '">'.$participant['solver'].'</a>
-  <a class=config href="'. configid2url($participant['configid']) .'">'. $participant['config'].'</a>
+		echo
+'  <th><a href="'. solverid2url($participant['solverid']) . '">'.$participant['solver'].'</a>
+   <a class=config href="'. configid2url($participant['configid']) .'">'. $participant['config'].'</a>
 ';	}
-	echo ' </tr>
+	echo
+' </tr>
 ';
 	$bench = [];
 
@@ -139,16 +144,24 @@
 					}
 				}
 				$conflicts += 1;
-				echo " <tr class=conflict>\n";
+				echo
+' <tr class=conflict>
+';
 			} else {
-				echo " <tr>\n";
-			}
-			echo "  <td class=benchmark>\n";
-			if( $conflict && $conflicts == 1 ) {
-				echo '   <a name="conflict"/>
+				echo
+' <tr>
 ';
 			}
-			echo '   <a href="'. $benchmark_url.'">'.$benchmark.'</a>
+			echo
+'  <td class=benchmark>
+';
+			if( $conflict && $conflicts == 1 ) {
+				echo
+'   <a name="conflict"/>
+';
+			}
+			echo
+'   <a href="'. $benchmark_url.'">'.$benchmark.'</a>
    <a class=starexecid href="'.$benchmark_remote.'">'.$benchmark_id.'</a></td>
 ';
 			foreach( array_keys($bench) as $me ) {
@@ -161,37 +174,45 @@
 				$url = pairid2url($my['pair']);
 				$outurl = pairid2outurl($my['pair']);
 				if( $status == 'complete' ) {
-					echo '  <td ' . result2style($result) . '>
+					echo
+'  <td ' . result2style($result) . '>
    <a href="'. $outurl .'">' . result2str($bareresult) . '</a>
    <a href="'. $url .'">
     <span class=time>' . $my['cpu'] . '/' . $my['time'] . '</span>
 ';
-	if( $cert != '-' ) {
-		echo ' (' . $cert . ' <span class=time>'. $certtime . '</span>)
+					if( $cert != '-' ) {
+						echo
+' (' . $cert . ' <span class=time>'. $certtime . '</span>)
 ';
-	}
-	echo '   </a>
+					}
+					echo
+'   </a>
 ';
 				} else {
-					echo '  <td ' . status2style($status) . '>
+					echo
+'  <td ' . status2style($status) . '>
    <a href="'. $url . '">' . $status . '</a>
 ' . (status2complete($status) ? '   <a href="'. $outurl .'">[out]</a>
 ' : '' );
 				}
 			}
-			echo " </tr>\n";
+			echo
+' </tr>
+';
 		}
 	}
-	echo " <tr><th>\n";
+	echo
+' <tr><th>
+';
 	foreach( $participants as $s ) {
-		echo "  <th>".$s['score']."</th>\n";
+		echo
+'  <th>'.$s['score'].'</th>
+';
 	}
-	$scorefileD = fopen($scorefile,"w");
+	$scorefileD = fopen($scorefile,'w');
 	fwrite( $scorefileD, json_encode($participants) );
 	fclose( $scorefileD );
 ?>
 </table>
 </body>
 </html>
-
-
