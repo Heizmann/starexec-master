@@ -1,3 +1,14 @@
+<?php
+	include 'definitions.php';
+	$rankseps = 0;
+	function ranksep() {
+		global $rankseps;
+		$rankseps += 1;
+		return
+'<span id="ranksep'. $rankseps . '"><br></span>
+<script>rankseps.push(document.getElementById("ranksep' . $rankseps . '"))</script>';
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,17 +23,6 @@
 		rankseps.forEach( function(s) { s.innerHTML = ranksep[ranksepi]; } );
 	}
 </script>
-<?php
-	include 'definitions.php';
-	$rankseps = 0;
-	function ranksep() {
-		global $rankseps;
-		$rankseps += 1;
-		return
-'<span id="ranksep'. $rankseps . '"><br></span>
-<script>rankseps.push(document.getElementById("ranksep' . $rankseps . '"))</script>';
-	}
-?>
 </head>
 <body>
 <?php
@@ -30,7 +30,7 @@ $competition = [
 	'name' => 'Certifying the Weighted Path Ordering',
 	'mcats' => [
 		'Certification Experiments' => [
-			[ 'Certified', 'termination', 39248 ],
+			[ 'Certified', 'termination', 39421 ],
 			[ 'Benchmarks that only NaTT proves terminating', 'termination', 39411 ],
 		],
 	],
